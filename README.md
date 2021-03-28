@@ -1,7 +1,5 @@
 # Ase-exporter-addon-Blender-2.9
 
-# ASE Export Script
-
 This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.9 (check the Releases).
 
 ## Videos
