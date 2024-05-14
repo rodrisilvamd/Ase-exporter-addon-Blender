@@ -10,10 +10,10 @@ This is a fork from the [original project](http://code.google.com/p/ase-export-v
 
 ## Installation
 * Download and extract the ASE Export Script.
-* In Blender, File (Edit in 2.9)/ User Preferences.
+* In Blender, File (Edit in 2.9/4.1)/ User Preferences.
 * Go to the Add-On Tab.
 * Install Add-On, select the extracted python script.
-* Click Save as Default (Save preferences or auto-save in Blender 2.9) to enable the script every time Blender loads (optional).
+* Click Save as Default (Save preferences or auto-save in Blender 2.9/4.1) to enable the script every time Blender loads (optional).
 
 You will find a new export option in File / Export called Ascii Scene Export (.ase).  If you do not see the script in the export menu after following the installation instructions, open the Add-On tab and find the script under Import-Export: ASCII Scene Exporter.  Be sure that it is enabled by checking the box next to the add-on name.  Contact me on my website if you still have problems exporting.
 
