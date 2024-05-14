@@ -1,11 +1,12 @@
 # ASE Export Script
 
-This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.78a and Blender 2.80 and Blender 2.9 (check the Releases).
+This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.78a and Blender 2.80 and Blender 2.9 (check the Releases). Latest release was upgraded for Blender 4.1.
 
 ## Videos
 * Blender 2.63a and ASE 2.01 (http://www.youtube.com/watch?v=63Wz0FoK2U0)
 * Blender 2.59 old version (http://www.youtube.com/watch?v=ZPQW5x1rhAY&feature=channel&list=UL)
 * Blender 2.92 ASE exporter install (https://youtu.be/jv8xxFaK3t8)
+* Blender 4.1 ASE exporter install (https://youtu.be/7gP3b-AP-lo?si=CifeH0j5Uawe0CU9)
 
 ## Installation
 * Download and extract the ASE Export Script.
