@@ -1,18 +1,20 @@
-# Ase-exporter-addon-Blender-2.9
+# ASE Export Script
 
-This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.9 (check the Releases).
+This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.78a and Blender 2.80 and Blender 2.9 (check the Releases).
 
 ## Videos
+* Blender 2.63a and ASE 2.01 (http://www.youtube.com/watch?v=63Wz0FoK2U0)
+* Blender 2.59 old version (http://www.youtube.com/watch?v=ZPQW5x1rhAY&feature=channel&list=UL)
 * Blender 2.92 ASE exporter install (https://youtu.be/jv8xxFaK3t8)
 
 ## Installation
 * Download and extract the ASE Export Script.
-* In Blender,Edit/Preferences.
+* In Blender, File (Edit in 2.9)/ User Preferences.
 * Go to the Add-On Tab.
-* Install an Add-On, select the extracted python script.
-* Click Save preferences or auto-save in Blender 2.9 to enable the script every time Blender loads (optional).
+* Install Add-On, select the extracted python script.
+* Click Save as Default (Save preferences or auto-save in Blender 2.9) to enable the script every time Blender loads (optional).
 
-You will find a new export option in File / Export called Ascii Scene Export (.ase). Be sure that it is enabled by checking the box next to the add-on name. 
+You will find a new export option in File / Export called Ascii Scene Export (.ase).  If you do not see the script in the export menu after following the installation instructions, open the Add-On tab and find the script under Import-Export: ASCII Scene Exporter.  Be sure that it is enabled by checking the box next to the add-on name.  Contact me on my website if you still have problems exporting.
 
 ## Mesh Requirements
 * All non-collision geometries must be UV unwrapped.
@@ -34,13 +36,11 @@ Assign smoothing groups by edge selecting the border of the faces you want assig
 
 ## Vertex Painting
 Apply vertex painting in Blender as normal, be sure that you have at least two uv texture slots.  This is not a technical limitation, but due to time constraints I left the vertex painting code inside of a conditional that requires two uv textures.  In order to view your vertex painting in UDK you will have to import and set up your materials correctly within UDK.
-
 ## Issues
-This version uses mesh duplication to avoid original meshes triangulation. Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like 'copy' or 'UCX_copy' as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
-This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions if requirements are not respected. It's best to work them inside Blender 2.9 before exporting (cleanup meshes and assign new materials and an UVmap for each material).
+This version uses mesh duplication to avoid original meshes triangulation. Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like co#pia or UCX_co#pia as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
+This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender 2.9 before exporting (cleanup meshes and assign new materials).
 
 Common errors:
-Latest addon version has some customized error messages in order to make it easier for beginners.
 *TypeError: 'float' object cannot be interpreted as an integer
 More than one UVmap assign per material. Remove UVmaps keep only one UVmap per material active.
 *AttributeError: 'NoneType' object has no attribute 'name'
