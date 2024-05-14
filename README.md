@@ -38,8 +38,8 @@ Assign smoothing groups by edge selecting the border of the faces you want assig
 ## Vertex Painting
 Apply vertex painting in Blender as normal, be sure that you have at least two uv texture slots.  This is not a technical limitation, but due to time constraints I left the vertex painting code inside of a conditional that requires two uv textures.  In order to view your vertex painting in UDK you will have to import and set up your materials correctly within UDK.
 ## Issues
-This version uses mesh duplication to avoid original meshes triangulation. Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like co#pia or UCX_co#pia as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
-This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender 2.9 before exporting (cleanup meshes and assign new materials).
+This version uses mesh duplication to avoid original mesh triangulation seen on working models after using it  . Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like co#pia or UCX_co#pia as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
+This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender before exporting them (cleanup meshes and assign new materials).
 
 Common errors:
 *TypeError: 'float' object cannot be interpreted as an integer
