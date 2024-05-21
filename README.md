@@ -1,7 +1,7 @@
 # ASE Export Script
 
 This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 4.1.
-This version creates a folder with de name of ASE file. Then, it creates a folder within this folder named "textures" where the applied textures will be saved.
+This version creates a folder with the name of the ASE file and saves the ASE file to it. A folder with the name "textures" is then created, in which the applied textures are saved.
 
 ## Videos
 * Blender 4.1.1 https://youtu.be/7gP3b-AP-lo?si=uZzMC_PZCQQ7dmJ1
