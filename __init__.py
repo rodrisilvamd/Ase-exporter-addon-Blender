@@ -23,7 +23,7 @@
 # **********************************
 bl_info = {
     "name": "ASCII Scene Exporter",
-    "author": "Richard Bartlett, MCampagnini",
+    "author": "Richard Bartlett, MCampagnini, Rodrisilva",
     "version": ( 4, 1, 1 ),
     "blender": ( 4, 1, 0 ),
     "api": 36079,
@@ -40,8 +40,8 @@ bl_info = {
 --  This script WILL NOT export skeletal meshes, these should be exported using a
 --  different file format.
 
---  More Information at http://code.google.com/p/ase-export-vmc/
---  UDK Thread at http://forums.epicgames.com/threads/776986-Blender-2-57-ASE-export
+--  More Information at
+--  UDK Thread at 
 """
 
 import os
@@ -68,7 +68,8 @@ matList = []
 numMats = 0
 currentMatId = 0
 list_objects = []
-
+#X = []
+fpath = []
 
 
 #== Error ==================================================================
@@ -81,7 +82,7 @@ class Error( Exception ):
 #== Header =================================================================
 class cHeader:
     def __init__( self ):
-        self.comment = "Ascii Scene Exporter v2.90"
+        self.comment = "Ascii Scene Exporter v4.10"
 
     def __repr__( self ):
         return '''*3DSMAX_ASCIIEXPORT\t200\n*COMMENT "{0}"\n'''.format( self.comment )
@@ -121,7 +122,7 @@ class cMaterials:
         import mathutils
 
         self.material_list = []
-
+       
         # Get all of the materials used by non-collision object meshes  
         for object in bpy.context.selected_objects:
 
@@ -318,6 +319,8 @@ class cDiffusemap:
     def __init__( self, slot ):
         import os
         import bpy
+        import shutil
+        global X
         self.dump = ''
 
         if slot is None:
@@ -345,7 +348,10 @@ class cDiffusemap:
            self.name = link_node.image.name
            self.mapclass = 'Bitmap'
            self.bitmap = bpy.path.abspath(link_node.image.filepath)
-
+           
+           #X.append(self.bitmap)
+           
+        
         self.subno = 1
         self.amount = aseFloat(1.0)
         self.type = 'Screen'
@@ -589,6 +595,7 @@ class cFacelist:
         global numMats
         global currentMatId
         global list_objects
+        global list_textures
         import bpy
 
 
@@ -895,6 +902,75 @@ def removeDuplimeshes(list_objects):
             bpy.data.objects.remove(object_to_delete, do_unlink=True)
     print(list_objects)
 
+
+#=================================================================================
+#            Save textures to ase location directory
+#===================================================================================
+
+def getdirtextures(flpath):
+        import pathlib
+        import shutil
+        import os
+        import bpy
+        #global X
+        
+        file_name = pathlib.Path(flpath).stem        #  "hotrod" 
+        file_dir = os.path.dirname(flpath)           # D:\outputfolder\
+        path = os.path.join(file_dir, file_name)     # D:\outputfolder\hotrod
+        dir_textures = "textures"
+        path2 =os.path.join(path, dir_textures)      # D:\outpufolder\hotrod\textures
+           
+        
+        try:
+            os.makedirs(path, exist_ok=True)
+            os.makedirs(path2, exist_ok=True)
+            #print("Directory '%s' created successfully" % directory)
+            
+        except OSError as error:
+            raise error("Directory '%s' can not be created")
+            
+            
+            
+        #obj = bpy.context.active_object
+        
+        C = bpy.context
+
+        # Iterate through all objects in selection
+        for ob in C.selected_objects:
+            if ob.type not in ('LIGHTS', 'CAMERA', 'VOLUME'): # OPTIONAL
+            # Iterate through all material slots
+                for slot in ob.material_slots:
+                    mat = slot.material
+                    nodes = mat.node_tree.nodes
+                    for n in nodes:
+                        if n.type == 'TEX_IMAGE':
+                            if n.image:
+                                path3 = os.path.join(path2, n.image.name)
+                                print(path3)
+                                n.image.save_render(path3)
+                        
+        #for slot in obj.material_slots:
+            #mat = slot.material
+            #nodes = mat.node_tree.nodes
+
+            #for n in nodes:
+                #if n.type == 'TEX_IMAGE':
+                    #if n.image:
+                        #path3 = os.path.join(path2, n.image.name)
+                        #print(path3)
+                        #n.image.save_render(path3)
+                        
+        #for index in  range(len(X)):
+            #if os.path.isfile(X[index]):
+                #print (X[0])#shutil.copy (X[index], path2)    # copia texturas para directório criado
+            #else:
+                #removeDuplimeshes (list_objects)
+                #raise Error("A texture image fails to copy. It not exists in pointed file path")
+        
+        flpath = (path + "/" + file_name + ".ase")
+        #X =[]
+        return flpath        
+        
 #===========================================================================
 # // General Helpers
 #===========================================================================
@@ -1067,6 +1143,7 @@ class ExportAse( bpy.types.Operator, ExportHelper ):
 
     def writeASE( self, filename, data ):
         print( '\nWriting', filename )
+        
         try:
             file = open( filename, 'w' )
         except IOError:
@@ -1092,10 +1169,10 @@ class ExportAse( bpy.types.Operator, ExportHelper ):
         global numMats
         global matList
         global list_objects
+        global fpath
+        from pathlib import Path
 
-
-        import bpy
-
+        
         # Set globals and reinitialize ase components
         aseHeader = ''
         aseScene = ''
@@ -1111,6 +1188,7 @@ class ExportAse( bpy.types.Operator, ExportHelper ):
         currentMatId = 0
         numMats = 0
         list_objects = []
+        fpath =[]
 
         # Make a list of selected objects
         for obj in bpy.context.selected_objects:
@@ -1177,17 +1255,22 @@ class ExportAse( bpy.types.Operator, ExportHelper ):
         aseModel += aseMaterials
         aseModel += aseGeometry
 
-        # Write the ASE file
-        self.writeASE( self.filepath, aseModel )
+        self.filepath = getdirtextures(self.filepath)  # call function to create file directory, dir name like ASE model name and copy textures
+               
+        self.writeASE(self.filepath, aseModel )
+        
 
         lapse = ( time.time() - start )
         print( 'Completed in ' + str( lapse ) + ' seconds' )
 
         # Select objects by type and delete selected duplicate mesh objects
         removeDuplimeshes (list_objects)
-
-
+        
+        
         return {'FINISHED'}
+# Make dir on save
+        
+         
 
 def menu_func( self, context ):
     self.layout.operator( ExportAse.bl_idname, text = "ASCII Scene Exporter (.ase)" )
