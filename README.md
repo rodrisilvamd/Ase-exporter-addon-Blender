@@ -1,26 +1,26 @@
 # ASE Export Script
 
-This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 2.78a and Blender 2.80 and Blender 2.9 (check the Releases). Latest release was upgraded for Blender 4.1.
+This is a fork from the [original project](http://code.google.com/p/ase-export-vmc/) by MCampagnini. The script has been upgraded to support Blender 4.1.
+This version creates a folder with de name of ASE file. Then, it creates a folder within this folder named "textures" where the applied textures will be saved.
 
 ## Videos
-* Blender 2.63a and ASE 2.01 (http://www.youtube.com/watch?v=63Wz0FoK2U0)
-* Blender 2.59 old version (http://www.youtube.com/watch?v=ZPQW5x1rhAY&feature=channel&list=UL)
-* Blender 2.92 ASE exporter install (https://youtu.be/jv8xxFaK3t8)
-* Blender 4.1 ASE exporter install (https://youtu.be/7gP3b-AP-lo?si=CifeH0j5Uawe0CU9)
+* Blender 4.1.1 https://youtu.be/7gP3b-AP-lo?si=uZzMC_PZCQQ7dmJ1
 
 ## Installation
 * Download and extract the ASE Export Script.
-* In Blender, File (Edit in 2.9/4.1)/ User Preferences.
-* Go to the Add-On Tab.
-* Install Add-On, select the extracted python script.
-* Click Save as Default (Save preferences or auto-save in Blender 2.9/4.1) to enable the script every time Blender loads (optional).
+* In Blender, Edit, Preferences.
+* Go to the Add-Ons Tab.
+* Install an Add-On bar, select the python script.
+* Click Save preferences on bottom left icon to enable the script every time Blender loads (optional) or select auto-save.
 
 You will find a new export option in File / Export called Ascii Scene Export (.ase).  If you do not see the script in the export menu after following the installation instructions, open the Add-On tab and find the script under Import-Export: ASCII Scene Exporter.  Be sure that it is enabled by checking the box next to the add-on name.  Contact me on my website if you still have problems exporting.
 
+In order to export any mesh without issues follow below conditions:
+
 ## Mesh Requirements
 * All non-collision geometries must be UV unwrapped.
-* All non-collision meshes must have a material assigned in material slots and an image texture applied with Principled BSDF shader node only.
-* All non-collision meshes must have only one uvmap per material.
+* All non-collision meshes must have at least one material assigned using an image texture applied with Principled BSDF shader node only.
+* All non-collision meshes must have one UVmap per material only.
 
 ## Optional
 * Mesh may have more than one material
@@ -37,9 +37,10 @@ Assign smoothing groups by edge selecting the border of the faces you want assig
 
 ## Vertex Painting
 Apply vertex painting in Blender as normal, be sure that you have at least two uv texture slots.  This is not a technical limitation, but due to time constraints I left the vertex painting code inside of a conditional that requires two uv textures.  In order to view your vertex painting in UDK you will have to import and set up your materials correctly within UDK.
+
 ## Issues
-This version uses mesh duplication to avoid original mesh triangulation seen on working models after using it  . Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like co#pia or UCX_co#pia as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
-This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender before exporting them (cleanup meshes and assign new materials).
+This version clones selected meshes to avoid triangulation on original mesh. Case it stops suddenly, as it happens during export errors, duplicates could appear in outliner window. They will show names like co#pia or UCX_co#pia as prefix and numbers like. 001, .002, 003 as suffix. Simply delete them.
+This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender before exporting (cleanup meshes and assign new materials).
 
 Common errors:
 *TypeError: 'float' object cannot be interpreted as an integer
@@ -52,3 +53,6 @@ Base color slot has no image texture assigned. Click on it and choose Image Text
 Material need to be assign at least one per mesh.
 *IndexError: bpy_prop_collection[index]: index 0 out of range, size 0
 Material slot has one mesh without assigned material. Get a material for the mesh or meshes before trying to export it again.
+
+## Notes
+I'm not a phython expert. This upgrade took me a lot of time trying to learn a new language. The script works as long as the necessary requirements are met.
