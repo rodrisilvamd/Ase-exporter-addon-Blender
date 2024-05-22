@@ -46,7 +46,7 @@ Common errors:
 
 - *TypeError: 'float' object cannot be interpreted as an integer :
 
-       More than one UVmap assigned per material. Remove UVmaps keep only one UVmap per material active.
+       More than one UVmap assigned per material. Remove UVmaps keep only one UVmap for each material.
  
 - *AttributeError: 'NoneType' object has no attribute 'name':
 
@@ -58,11 +58,11 @@ Common errors:
 
 - *io_export_ase -RSmod.Error:
 
-       Mesh must have at least one applied material.A material need to be assigned.
+       Mesh must have at least one applied material. A material need to be assigned.
 
 - *IndexError: bpy_prop_collection[index]: index 0 out of range, size 0
 
-      Material slot has one mesh without assigned material. Get a material for the mesh or meshes before trying to export it again.
+      Material slot has one mesh without assigned material. Get a material for each mesh or meshes before trying to export.
 
 ## Notes
 I'm not a phython expert. This upgrade took me a lot of time trying to learn a new language. The script works as long as the necessary requirements are met.
