@@ -65,4 +65,4 @@ Common errors:
       Material slot has one mesh without assigned material. Get a material for each mesh or meshes before trying to export.
 
 ## Notes
-I'm not a phython expert. This upgrade took me a lot of time trying to learn a new language. The script works as long as the necessary requirements are met.
+I'm not a phyton expert. This upgrade took me a lot of time trying to learn a new language. The script works as long as the necessary requirements are met.
