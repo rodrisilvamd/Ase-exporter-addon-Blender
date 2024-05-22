@@ -43,16 +43,26 @@ This version clones selected meshes to avoid triangulation on original mesh. Cas
 This add-on didn't work with bad topology meshes. It fails often when importing 3d models from other blender versions or imported models. It's best to work them inside Blender before exporting (cleanup meshes and assign new materials).
 
 Common errors:
-*TypeError: 'float' object cannot be interpreted as an integer' 
-- More than one UVmap assign per material. Remove UVmaps keep only one UVmap per material active.
-*AttributeError: 'NoneType' object has no attribute 'name'
-- Image Texture is choosen but it was not loaded. Get the texture where you placed it.
-*IndexError: tuple index out of range
-- Base color slot has no image texture assigned. Click on it and choose Image Texture on choice list.
-*io_export_ase -RSmod.Error: Mesh must have at least one applied material.
-- Material need to be assign at least one per mesh.
-*IndexError: bpy_prop_collection[index]: index 0 out of range, size 0
-- Material slot has one mesh without assigned material. Get a material for the mesh or meshes before trying to export it again.
+
+- *TypeError: 'float' object cannot be interpreted as an integer :
+
+       More than one UVmap assigned per material. Remove UVmaps keep only one UVmap per material active.
+ 
+- *AttributeError: 'NoneType' object has no attribute 'name':
+
+       Image Texture is choosen but it was not loaded. Get the texture where you placed it.
+
+- *IndexError: tuple index out of range:
+
+       Base color slot has no image texture assigned. Click on it and choose Image Texture.
+
+- *io_export_ase -RSmod.Error:
+
+       Mesh must have at least one applied material.A material need to be assigned.
+
+- *IndexError: bpy_prop_collection[index]: index 0 out of range, size 0
+
+      Material slot has one mesh without assigned material. Get a material for the mesh or meshes before trying to export it again.
 
 ## Notes
 I'm not a phython expert. This upgrade took me a lot of time trying to learn a new language. The script works as long as the necessary requirements are met.
